@@ -37,3 +37,5 @@ yarn.lock
 # Other system files
 *~
 *.swp
+
+.env
