@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/p.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <title>Profile</title>
+    <style>
+        * {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="nav">
+        <ul class="n-u">
+            <h1 class="title">nokoSocial</h1>
+        </ul>
+        <form id="sc">
+            <img id='si' src="/images/search.png" onclick="search()">
+            <input type="search" id="serach" placeholder="Search for creators, inspiration and projects">
+        </form>
+        <button id="create" onclick="cre()">Create</button>
+        <div class="plogo">
+            <img id="lg" src="<%= admin.image %>" alt="Profile Image">
+        </div>
+    </div> 
+
+    <div class="spacer1"></div>
+
+    <!-- Main Section -->
+    <div class="section">
+        <!-- Sidebar -->
+        <div class="side-bar">
+            <div id="logo1">
+                <img id="lg1" src="<%= admin.image %>" alt="Admin Image">
+                <h4 id="lgname"><%= admin.username %></h4>
+            </div>
+            <div id="shome">
+                <img src="/images/home.png" id="home" onclick="home()" alt="Home Icon">
+                <h3>Home</h3>
+            </div>
+            <div id="creat-c">
+                <img src="/images/page.png" id="home" alt="Create Icon" onclick="cre()">
+                <h3>Create</h3>
+            </div>
+            <div id="save-c">
+                <img src="/images/bookmark.png" id="home" onclick="bookmark()" alt="Bookmark Icon">
+                <h3>Save</h3>
+            </div>
+            <div id="notification-c">
+                <img src="/images/notification.png" id="home" alt="Notification Icon">
+                <h3>Notification</h3>
+            </div>
+            <div id="logout-c">
+                <img src="/images/power-off.png" id="home" alt="Logout Icon" onclick="logout()">
+                <h3>Logout</h3>
+            </div>
+        </div>
+
+        <!-- Profile Section -->
+        <div class="profile">
+            <div class="logo-c">
+                <div id="logo2">
+                    <img id="lg3" src="<%= admin.image %>" alt="Admin Image">
+                </div>
+                <h2 id="lgname1"><%= admin.username %></h2>
+            </div>
+            <br>
+            <hr>
+            <div class="actype">
+                <h1 id="ac">Account:</h1>
+                <h4 id="lgname4"><%= admin.acType %></h4>
+            </div>
+
+            <!-- Friend List -->
+            <% if (admin.friend.length > 0) { %>
+                <hr>
+                <div class="flabel">Friend List</div>
+                <% admin.friend.forEach(fri => { %>
+                    <div class="logo-b">
+                        <div id="logo3">
+                            <img id="lg3" src="<%= fri.image %>" alt="<%= fri.username %>">
+                        </div>
+                        <h2 id="lgname6" onclick="pro('<%= fri._id %>')"><%= fri.username %></h2>
+                        <img src="/images/check.png" alt="Check Icon" id="lg4" data-id="<%= fri._id %>" onclick="frd(this, '<%= fri._id %>')">
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p style="padding-left: 4vw; font-size: 3vh;">No friends to display.</p>
+            <% } %>
+        </div>
+
+        <!-- Posts Section -->
+        <% if (admin.post.length > 0) { %>
+            <% admin.post.forEach(pos => { %>
+                <div class="cart">
+                    <div class="logo-c">
+                        <div id="logo2">
+                            <img id="lg3" src="<%= admin.image %>" alt="Admin Image">
+                        </div>
+                        <h2 id="lgname1"><a href="#"><%= admin.username %></a></h2>
+                    </div>
+                    <div class="post">
+                        <p><%= pos.des %></p>
+                    </div>
+                    <div id="img">
+                        <img src="<%= pos.image %>" alt="Post Image" id="lg5">
+                    </div>
+                    <div class="icon">
+                        <% if (!pos.likes.includes(admin._id)) { %>
+                            <img src="/images/unlike.png" alt="Unlike" id="like" onclick="like('<%= pos._id %>')">
+                        <% } else { %>
+                            <img src="/images/like.png" alt="Like" id="like" onclick="like('<%= pos._id %>')">
+                        <% } %>
+                        <h2 id="num"><%= pos.likes.length %></h2>
+                        <img src="/images/download.png" alt="Download" id="dow" onclick="dow()">
+                       
+                            <img src="/images/delete.png" alt="Bookmarked" id="bookmark" onclick="Del('<%= pos._id %>')">
+                        
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            
+        <% } %>
+    </div>
+
+    <script>
+        function pro(id) {
+            window.location.href = `/profile/${id}`;
+        }
+
+        async function search() {
+            let input = document.getElementById("serach").value;
+            const section = document.querySelector(".section");
+            const data = { "username": input };
+            try {
+                const response = await fetch("/names", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data)
+                });
+                const result = await response.json();
+                if (result.success) {
+                    section.innerHTML = "";
+                    result.data.post.forEach(e => {
+                        const newCard = document.createElement("div");
+                        newCard.classList.add("cart");
+                        newCard.innerHTML = `
+                            <div class="logo-c">
+                                <div id="logo2">
+                                    <img id="lg3" src="${result.data.image}" alt="${result.data.username}">
+                                </div>
+                                <h2 id="lgname1"><a href="#">${result.data.username}</a></h2>
+                            </div>
+                            <div class="post">
+                                <p>${e.des}</p>
+                            </div>
+                            <div id="img">
+                                <img src="${e.image}" alt="Post Image" id="lg5">
+                            </div>
+                            <div class="icon">
+                                <img src="/images/unlike.png" alt="Unlike" id="like">
+                                <h2 id="num">${e.likes.length}</h2>
+                                <img src="/images/book-mark.png" alt="Bookmark" id="bookmark">
+                            </div>`;
+                        section.appendChild(newCard);
+                    });
+                } else {
+                    alert("Match not found");
+                }
+            } catch (error) {
+                console.error("Error during search:", error);
+                alert("An unexpected error occurred.");
+            }
+        }
+
+        function home() {
+            window.location.href = '/main';
+        }
+
+        function bookmark() {
+            window.location.href = `/book`;
+        }
+
+        function dow() {
+            const image = document.querySelector("#lg5");
+            saveAs(image.src, "download.jpg");
+        }
+
+        function like(id) {
+            window.location.href = `/like3/${id}`;
+        }
+        
+        function cre(){
+         window.location.href=`/create-page`
+    }
+
+    function logout(){
+        window.location.href=`/logout`
+    }
+
+    async function frd (element,id){
+        window.location.href = `/friend3/${id}`;
+    
+    
+
+        }
+
+        function Del(id){
+            window.location.href = `/del/${id}`;
+    
+        }
+    </script>
+</body>
+</html>

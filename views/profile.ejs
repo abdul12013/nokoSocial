@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
+    <link rel="stylesheet" href="/p.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <title>profile </title>
+</head>
+<body>
+   <div class="nav">
+    <ul class="n-u">
+        <h1 class="title">nokoSocial</h1>
+    </ul>
+  
+    <from id="sc">
+        <img  id='si' src="/images/search.png" onclick="search()">
+        <input type="search" id="serach" placeholder="Search for creators, inspiration and projects">
+    </from>
+   
+    <button id="create" onclick="cre()">create</button>
+    <div class="plogo"><img  id="lg" src="<%=admin.image %>" onclick="Admin()"></div>
+   </div> 
+
+   <div class="spacer1"></div>
+   
+  
+  
+   <!-- section part -->
+    <div class="section">
+    
+    <!-- side bar -->
+     <div class="side-bar">
+        <!-- logo -->
+         <div id="logo1">
+            <img  id="lg1" src="<%=admin.image %>" onclick="Admin()"> <h4 id="lgname"><%=admin.username %></h4>
+         </div>
+         <!-- home -->
+         <div id="shome">
+<img src="/images/home.png" id="home" onclick="home()"><h3 >Home</h3>
+         </div>
+
+         <!-- create -->
+         <div id="creat-c">
+            <img src="/images/page.png" id="home" onclick="cre()"><h3>create</h3>
+                     </div>
+
+        <!-- save -->
+        <div id="save-c">
+            <img src="/images/bookmark.png" id="home" onclick="bookmark()"><h3>save</h3>
+                    </div>
+        
+        <!-- notification -->
+        <div id="notification-c">
+            <img src="/images/notification.png" id="home"><h3>notification</h3>
+                    </div>
+
+        <!-- logout -->
+        <div id="logout-c">
+            <img src="/images/power-off.png" id="home" onclick="logout()"><h3>Logout</h3>
+                    </div>   
+
+
+
+
+         
+     </div>
+
+    
+
+    
+     <div class="profile">
+
+        <div class="logo-c">
+            <div id="logo2">
+                <img  id="lg3" src="<%=user.image %>">
+            </div>
+            <h2 id="lgname1"><%=user.username %></h2> 
+         
+            
+            <% if (admin.friend.includes(user._id)) { %>
+                <img src="/images/check.png" alt="" id="lg4" data-id="<%= user._id %>" onclick="frd(this,'<%= user._id %>')">
+            <% } else { %>
+                <img src="/images/add.png" alt="" id="lg4" data-id="<%= user._id %>" onclick="frd(this,'<%= user._id %>')">
+            <% } %>
+            
+    
+               
+        </div>
+        <br>
+        <hr >
+
+
+        <div class="actype">  <h1 id="ac">account:</h1> <h4 id="lgname4"><%=user.acType %></h4></div>
+       
+        
+
+        <% user.friend.forEach(fri=>{ %>
+            <hr>
+        <div class="flabel">FriendList</div>
+        <div class="logo-b">
+            <div id="logo3">
+                <img  id="lg3" src="<%=fri.image %>">
+            </div>
+            <h2 id="lgname6" onclick="pro('<%= fri._id %>')"><%=fri.username %></h2> 
+         
+           
+            
+                <img src="/images/check.png" alt="" id="lg4" data-id="<%= user._id %>" onclick="frd(this,'<%= user._id %>')">
+
+             
+            <%}) %>
+        </div>
+
+
+        
+     </div>
+    
+
+     <% user.post.forEach(pos=>{ %>
+        
+     <div class="cart">
+        <div class="logo-c">
+            <div id="logo2">
+                <img  id="lg3" src="<%= user.image %>">
+            </div>
+            <h2 id="lgname1"><a href=""><%=user.username %></a></h2> 
+           
+        </div>
+
+        <div class="post">
+            <p><%=pos.des %></p>
+        </div>
+
+        <!-- post image  -->
+
+        <div id="img">
+            <img src="<%=pos.image %>" alt="image " id="lg5">
+        </div>
+
+        <div class="icon"> 
+            <% if(pos.likes.indexOf(admin._id )===-1) { %>
+          
+                <img src="/images/unlike.png" alt="" id="like" onclick="like('<%= pos._id %> ')"> 
+                <% }  else {%>
+              
+                <img src="/images/like.png" alt="" id="like" onclick="like('<%= pos._id %> ')">  
+                 <% } %>
+                 <h2 id="num"><%=pos.likes.length %></h3>
+                    <img src="/images/download.png" alt="" id="dow" onclick="dow()"> 
+                 <% if( admin.bookmarks.indexOf(pos._id)===-1) { %>
+                 <img src="/images/book-mark.png" alt="" id="bookmark" onclick="save('<%= pos._id %>')">
+                 <% }  else {%>
+                     <img src="/images/bookmark.png" alt="" id="bookmark" onclick="save('<%= pos._id %>')">
+                     <% } %>
+        </div>
+       
+       
+     </div>
+     <%}) %>
+
+    
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        
+        function pro(id){
+            window.location.href=`/profile/${id}`
+        }
+
+    async  function search(){
+    let input=document.getElementById("serach").value
+    // let card=document.querySelectorAll(".cart")
+    let section=document.querySelector(".section")
+
+    let logo=document.getElementById('lg3')
+    let uname=document.getElementById("lgname1")
+    let p=document.getElementsByTagName("p")
+    let postImage=document.getElementById('lg5')
+
+    const allCards = document.querySelectorAll(".cart");
+   
+    const data={
+        "username":input
+    }
+    console.log(data)
+    try {
+        const response = await fetch("/names", {  // Match the route you defined
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        });
+
+        const result =  await response.json()
+        console.log(result.data)
+
+        if (result.success) {  // Check result.success instead of response.ok
+            allCards.forEach((card) => card.remove());
+            result.data.post.forEach(e=>{
+                //    username.forEach(e=> {
+       
+       
+
+        const newCard = document.createElement("div");
+                newCard.classList.add("cart");
+                newCard.innerHTML = `
+                    <div class="logo-c">
+                        <div id="logo2">
+                            <img id="lg3" src="${result.data.image}" alt="${result.data.username}">
+                        </div>
+                        <h2 id="lgname1"><a href="#">${result.data.username}</a></h2>"
+                        <img src="/images/add.png" alt="Add" id="lg4">
+                    </div>
+                    <div class="post">
+                        <p>${e.des}</p>
+                    </div>
+                    <div id="img">
+                        <img src="${e.image}" alt="image" id="lg5">
+                    </div>
+                    <div class="icon">
+                        <img src="/images/unlike.png" alt="Unlike" id="like">
+                        <h2 id="num">3</h2>
+                        <img src="/images/book-mark.png" alt="Bookmark" id="bookmark">
+                    </div>
+                `;
+        
+        section.appendChild(newCard)
+           })
+        }
+        
+           
+           
+       
+         else {
+            alert("match not found ");
+        }
+    } catch (error) {
+        console.error("Error during login:", error);
+        alert("An unexpected error occurred.");
+    }
+    
+       
+    
+    
+    }
+
+    function save (id){
+        window.location.href = `/save1/${id}`;
+
+    }
+    function like (id){
+        window.location.href = `/like1/${id}`;
+
+    }
+
+    
+
+   async function frd (element,id){
+        window.location.href = `/friend1/${id}`;
+    
+    
+
+        }
+
+        function home(){
+        window.location.href = '/main'
+    }
+
+    
+    function bookmark(){
+        window.location.href=`/book`
+    }
+
+
+        function dow(){
+            let image=document.querySelector("#lg5")
+           const url=image.src
+           const name="download.jpg"
+           saveAs(url, name);
+        }
+        
+
+
+        function cre(){
+         window.location.href=`/create-page`
+    }
+
+    function Admin(){
+          window.location.href=`/admin`
+    }
+
+    function logout(){
+        window.location.href=`/logout`
+    }
+
+      
+
+    
+    </script>
+
+    </body>
+</body>
+</html>

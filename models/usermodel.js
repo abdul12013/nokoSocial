@@ -1,4 +1,5 @@
 
+const { required } = require("joi")
 const mongoose=require("mongoose")
 
 
@@ -21,30 +22,27 @@ const userSchema=mongoose.Schema({
     },
     image:{
         type:String,
+        required:false,
+     },
+
+     acType:{
+        type:String,
         required:true
      },
-     is_online:{
-        type:String,
-        default:'0'
-     },
 
-    otp:{
-        type:String
-    },
+     post:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"post"
+     }],
+     bookmarks:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"post"
+    }],
 
-
-    otpexpire:{
-        type:Date
-    },
-    otpVerifiy:{
-        type:Boolean,
-        default:false
-    }
-    
- 
-
-  
-
+     friend:[{
+       type: mongoose.Schema.Types.ObjectId,
+    ref: "usermodel"
+     }]
 },
 {timestamps:true}
 )

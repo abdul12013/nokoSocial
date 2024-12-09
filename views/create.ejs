@@ -42,7 +42,8 @@
             flex-direction: column;
         }
 
-        input {
+        textarea,
+        input[type="file"] {
             margin: 10px 0;
             padding: 12px;
             font-size: 1rem;
@@ -54,11 +55,12 @@
             transition: all 0.3s ease;
         }
 
-        input::placeholder {
+        textarea::placeholder {
             color: #a9a9a9;
         }
 
-        input:focus {
+        textarea:focus,
+        input[type="file"]:focus {
             border-color: #ff0080;
             box-shadow: 0 0 8px rgba(255, 0, 128, 0.8);
         }
@@ -102,7 +104,8 @@
                 font-size: 1.7rem;
             }
 
-            input {
+            textarea,
+            input[type="file"] {
                 font-size: 0.9rem;
                 padding: 10px;
             }
@@ -120,57 +123,15 @@
 </head>
 <body>
     <div class="main">
-        <h1 class="heading">Register</h1>
-        <form action="" method="" id="form">
-            <input type="email" class="email"  placeholder="E-Mail" name="email" required>
-            <input type="password" class="password"  placeholder="Password" name="password" required>
-            <input type="submit" value="Login" name="btn" class="registor" >
+        <h1 class="heading">Submit Details</h1>
+        <form action="/createPost" method="post" id="form" enctype="multipart/form-data">
+            <textarea class="details" placeholder="Enter your details" name="dec" rows="4" required></textarea>
+            <input type="file" class="file-upload" name="file" required>
+            <input type="submit" value="Submit" name="btn" class="registor">
         </form>
-        <div class="sig">
-            <p>Don't have an account?</p>  
-            <a href="/sign-page">Sign up</a>
-        </div>
+        
     </div>
 
-    <script>
-        const url = "/user/login"; // Replace with your API endpoint
-       
-
-       const button=document.querySelector(".registor")
-       button.addEventListener('click', async(e)=>{
-        e.preventDefault()
-        let email=document.querySelector('.email').value
-        let password=document.querySelector('.password').value
-        const data={
-            "email":email,
-            "password":password
-        }
-        console.log(data)
-
    
-        try {
-        const response = await fetch("/login", {  // Match the route you defined
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-        });
-
-        const result =  await response.json()
-        console.log(result)
-
-        if (result.success) {  // Check result.success instead of response.ok
-            alert(result.msg);
-            window.location.href = "/main";
-        } else {
-            alert(result.msg);
-        }
-    } catch (error) {
-        console.error("Error during login:", error);
-        alert("An unexpected error occurred.");
-    }
-});
-    </script>
 </body>
 </html>

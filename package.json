@@ -26,6 +26,7 @@
     "express": "^4.19.2",
     "express-fileupload": "^1.5.1",
     "express-session": "^1.18.0",
+    "file-saver": "^2.0.5",
     "joi": "^17.13.3",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.4.1",

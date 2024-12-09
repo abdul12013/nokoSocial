@@ -1,7 +1,7 @@
 const mongoose=require("mongoose")
 
 const config=require('config')
-mongoose.connect(`${config.get("MONGODB_URI")}/chattApp`)
+mongoose.connect(config.get("MONGODB_URI"))
 .then(function(){ 
   console.log("connect")
 })

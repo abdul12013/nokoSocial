@@ -1,81 +1,384 @@
 require("dotenv").config();
 const express = require("express");
-const nodemailer = require("nodemailer");
-const usersModel = require("../models/usermodel");
 const router = express.Router();
-const session = require("express-session");
-const crypto = require("crypto");
 const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-
 const jwtTocken = require("../Handler/token");
 const joi = require("joi");
 const cloudinary = require("../Handler/cloud");
 const islogging = require("../middlewere/user_isloggin");
 const upload = require("../middlewere/fileupload");
-const usermodel = require("../models/usermodel");
-const cron = require('node-cron');
-
-const chat=require("../models/messageModel")
-// Ensure EXPIRE is a valid number
-const expireTime = parseInt(process.env.EXPIRE) || 30; // Default to 30 if not set
+const path=require("path")
 
 
-// Scheduler setup
-cron.schedule('*/25 * * * *', async () => {
-    try {
-      console.log("Cron job running...");
-      const users = await usermodel.find({ otpexpire: { $lt: Date.now() }, otpVerifiy: false });
-      console.log("Users found to be deleted:", users);
-      const result = await usermodel.deleteMany({ otpexpire: { $lt: Date.now() }, otpVerifiy: false });
-      console.log(`${result.deletedCount} unverified users deleted.`);
-    } catch (error) {
-      console.error('Error deleting users:', error);
-    }
-  });
-  
 
-// Your other routes and middleware...
+// router.use(express.urlencoded({ extended: true }));
+// router.use(express.json());
+// router.use(express.static(path.join(__dirname, "public")));
+
+
+
+//importing database model
+const usersModel = require("../models/usermodel");
+const postModel=require("../models/postmodel")
 
 
 
 
-
-router.get("/registerPage",(req,res)=>{
+router.get("/sign-page",(req,res)=>{
     res.render("register")
-  })
-  router.get("/otp",(req,res)=>{
-    res.render("otp")
-  })
 
-  router.get("/chat",islogging, async(req,res)=>{
-   user=await usermodel.findOne({email:req.user.email})
-  alluser=await usermodel.find({email:{$nin:[req.user.email]}})
-  console.log(alluser)   
-    res.render("chat",{user:user,alluser:alluser})
 })
+
+router.get("/main", islogging, async(req,res)=>{
+    user=await usersModel.findOne({email:req.user.email})
+    post=await postModel.find().populate("user")
+    postu=[]
+    // post.forEach(e=> {
+    
+    //     e.user.forEach(e=>{
+    //         postu.push(e)
+    //     })
+    //     console.log(postu)
+   
+    //     // postu.forEach(e=>{
+    //     //     console.log(`post data ${e}`)
+    //     // })
+
+      res.render("allpost", {user:user,post:post})
+    
+})
+
+router.get("/friend/:id",islogging, async(req,res)=>{
+
+    const user=await usersModel.findOne({_id:req.user.userid})
+    if(user.friend.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.friend.push(req.params.id)
+   }
+   else{
+    user.friend.splice(user.friend.indexOf(req.params.id),1)}
+await user.save()
+  res.redirect("/main")
+})
+
+
+
+let pro;
+
+router.get('/profile/:id',islogging, async(req,res)=>{
+    admin= await usersModel.findOne({_id:req.user.userid})
+     pro= req.params.id
+    
+    user=await usersModel.findOne({_id:req.params.id}).populate([
+       { path: "friend"},
+        {path: "post"},
+    ])
+    
+        
+      res.render("profile", {user:user,admin:admin})
+    
+    })
+
+router.get("/friend1/:id",islogging, async(req,res)=>{
+    
+    const user=await usersModel.findOne({_id:req.user.userid})
+    if(user.friend.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.friend.push(req.params.id)
+
+
+   }
+   else{
+    user.friend.splice(user.friend.indexOf(req.params.id),1)}
+await user.save()
+res.redirect(`/profile/${pro}`)
+})
+
+router.get("/friend2/:id",islogging, async(req,res)=>{
+    
+    const user=await usersModel.findOne({_id:req.user.userid})
+    if(user.friend.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.friend.push(req.params.id)
+
+
+   }
+   else{
+    user.friend.splice(user.friend.indexOf(req.params.id),1)}
+await user.save()
+res.redirect(`/book`)
+})
+
+
+router.get("/friend3/:id",islogging, async(req,res)=>{
+    
+    const user=await usersModel.findOne({_id:req.user.userid})
+    if(user.friend.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.friend.push(req.params.id)
+
+
+   }
+   else{
+    user.friend.splice(user.friend.indexOf(req.params.id),1)}
+await user.save()
+res.redirect(`/admin`)
+})
+
+
+
+router.post("/names", islogging, async(req,res)=>{
+    console.log(req.body.username)
+   user=await usersModel.findOne({username:req.body.username}).populate("post") 
+
+   if(user){
+    res.status(200).json({success:true,data:user})
+   }
+   else{
+    res.status(200).json({success:false,data:"no match found"})
+   }
+
+
+})
+
+
+//likes
+router.get("/like/:id", islogging,async(req,res)=>{
+    
+    let post= await postModel.findOne({_id:req.params.id})
+    console.log(post)
+    console.log(post.likes.indexOf(req.user.userid))
+    // res.json(post)
+
+    if(post.likes.indexOf(req.user.userid)===-1) //no id in likes array
+   {
+    post.likes.push(req.user.userid)
+     
+    
+   }
+   else{
+    post.likes.splice(post.likes.indexOf(req.user.userid),1)
+    console.log("no")
+    
+    
+   }
+await post.save()
+  res.redirect("/main")
+
+})
+
+router.get("/like1/:id", islogging,async(req,res)=>{
+    
+    let post= await postModel.findOne({_id:req.params.id})
+    console.log(post)
+    console.log(post.likes.indexOf(req.user.userid))
+    // res.json(post)
+
+    if(post.likes.indexOf(req.user.userid)===-1) //no id in likes array
+   {
+    post.likes.push(req.user.userid)
+     
+    
+   }
+   else{
+    post.likes.splice(post.likes.indexOf(req.user.userid),1)
+    // console.log("no")
+    
+    
+   }
+await post.save()
+  res.redirect(`/profile/${pro}`)
+
+})
+
+
+router.get("/like2/:id", islogging,async(req,res)=>{
+    
+    let post= await postModel.findOne({_id:req.params.id})
+    console.log(post)
+    console.log(post.likes.indexOf(req.user.userid))
+    // res.json(post)
+
+    if(post.likes.indexOf(req.user.userid)===-1) //no id in likes array
+   {
+    post.likes.push(req.user.userid)
+     
+    
+   }
+   else{
+    post.likes.splice(post.likes.indexOf(req.user.userid),1)
+    // console.log("no")
+    
+    
+   }
+await post.save()
+  res.redirect(`/book`)
+
+})
+
+router.get("/like3/:id", islogging,async(req,res)=>{
+    
+    let post= await postModel.findOne({_id:req.params.id})
+    console.log(post)
+    console.log(post.likes.indexOf(req.user.userid))
+    // res.json(post)
+
+    if(post.likes.indexOf(req.user.userid)===-1) //no id in likes array
+   {
+    post.likes.push(req.user.userid)
+     
+    
+   }
+   else{
+    post.likes.splice(post.likes.indexOf(req.user.userid),1)
+    // console.log("no")
+    
+    
+   }
+await post.save()
+  res.redirect(`/admin`)
+
+})
+
+
+
+
+router.get("/save/:id",islogging, async(req,res)=>{
+    const user=await usersModel.findOne({_id:req.user.userid})
+    // console.log(req.params.id)
+
+    
+    if(user.bookmarks.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.bookmarks.push(req.params.id)
+     
+    
+   }
+   else{
+    user.bookmarks.splice(user.bookmarks.indexOf(req.params.id),1)
+    // console.log("no")
+    
+    
+   }
+await user.save()
+  res.redirect("/main")
+
+})
+
+router.get("/save1/:id",islogging, async(req,res)=>{
+    const user=await usersModel.findOne({_id:req.user.userid})
+    // console.log(req.params.id)
+
+    
+    if(user.bookmarks.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.bookmarks.push(req.params.id)
+     
+    
+   }
+   else{
+    user.bookmarks.splice(user.bookmarks.indexOf(req.params.id),1)
+    // console.log("no")
+    
+    
+   }
+await user.save()
+res.redirect(`/profile/${pro}`)
+
+})
+
+
+router.get("/save2/:id",islogging, async(req,res)=>{
+    const user=await usersModel.findOne({_id:req.user.userid})
+    // console.log(req.params.id)
+
+    
+    if(user.bookmarks.indexOf(req.params.id)===-1) //no id in likes array
+   {
+    user.bookmarks.push(req.params.id)
+     
+    
+   }
+   else{
+    user.bookmarks.splice(user.bookmarks.indexOf(req.params.id),1)
+    // console.log("no")
+    
+    
+   }
+await user.save()
+res.redirect(`/book`)
+
+})
+
+
+
+
+
+
+
+
+router.get('/book', islogging, async(req,res)=>{
+    
+    const admin= await usersModel.findOne({_id:req.user.userid}).populate("bookmarks").populate({
+        path: 'bookmarks',
+        populate: {
+            path: 'user', // This tells Mongoose to populate the `user` field inside `bookmarks`
+            model: 'usermodel' // Specifies the model to use for population
+        }
+    });
+  
+    res.render('book',{admin:admin})
+})
+
+
+router.get('/admin', islogging, async(req,res)=>{
+    const admin= await usersModel.findOne({_id:req.user.userid}).populate([
+        { path: 'post' },
+        { path: 'friend' }
+    ])
+    console.log
+    res.render('admin',{admin:admin, user:admin})
+
+
+    
+})
+
+
+router.get('/create-page',  islogging,async(req,res)=>{
+    res.render('create')
+})
+
+router.get('/logout', islogging,async(req,res)=>{
+    res.clearCookie("token")
+    res.redirect("/")
+})
+
+
+router.get('/del/:id', islogging, async(req,res)=>{
+    const post= await postModel.findOneAndDelete({_id:req.params.id})
+    res.redirect('/admin')
+})
+
+
+
+
+//Registor 
 router.post("/Registor", upload.single("file"), async (req, res) => {
+  
 try{
-    console.log()
-    if (!req.file) {
-        return res.json({
-            error: true,
-            message: "not found",
-            status: 500
-        })
+    if(!req.file){
+        res.json("please enter the file ")
     }
-else{
+    else{
     const schema = joi.object({
         username: joi.string().required().min(4),
         email: joi.string().email().required(),
-        password: joi.string().required().min(4).max(7)
+        password: joi.string().required().min(3).max(7),
+        image:joi.string().required(),
+        acType:joi.string().required()
 
-            .pattern(new RegExp('[A-Z]'))
-            .pattern(new RegExp('[a-z]'))
-            .pattern(new RegExp('[0-9]'))
-            .pattern(new RegExp('[!@#$%^&*(),.?":{}|<>]')),
-            image: joi.string().required(),
     })
+
     const picon = req.file.path;
     cloudinary.uploader.upload(picon, async (err, result) => {
         if (err) {
@@ -87,29 +390,16 @@ else{
         }
         else {
             let value = {
-                username: req.body.username,
+                username:req.body.username,
                 email: req.body.email,
                 password:req.body.password,
-                image: result.secure_url,
-                
+                image:result.secure_url,
+                acType:req.body.acType
             }
            
-    const trans= nodemailer.createTransport({      
-        host: "smtp.gmail.com",
-        service:"gmail",
-        auth: {
-          type: "login", // default
-          user: process.env.EMAIL, 
-          pass: process.env.PASSWORD
-        }
-      });
+            console.log(value)
     const results = schema.validate(value)
-    console.log(results.value.image)
-    let otp=crypto.randomInt(1000,10000)
-    ; // Expires in 10 minutes
-
-    const otpexpire = new Date(Date.now() +process.env.EXPIRE  * 60000);
-
+    
     if (results.error) {
         res.status(505).send(results.error.details[0].message)
     }
@@ -133,23 +423,12 @@ else{
                             email: results.value.email,
                             password: hash,
                             image:results.value.image,
-                            otp:otp,
-                            otpexpire:otpexpire
+                            acType:results.value.acType
                         })
 
 
-                        // let token = jwtTocken(createdUser)
 
-                        // res.cookie("token", token)
-                        const mailOptions = {
-                            from: process.env.EMAIL,
-                            to: createdUser.email,
-                            subject: 'Email Verification OTP',
-                            html: `<p>Your OTP for verification is <strong>${otp}</strong>. It expires in 30 minutes.</p>`,
-                          };
-                      
-                          await trans.sendMail(mailOptions);
-                          res.redirect("/user/otp")
+                      res.redirect("/")
 
                     }
                     catch (err) {
@@ -169,96 +448,89 @@ else{
 }
 )
 
-router.post("/verifyotp", async(req,res)=>{
-    const { otp1, otp2, otp3, otp4 } = req.body;
-  const otp = otp1 + otp2 + otp3 + otp4;
-    console.log( otp)
-    const user= await usersModel.findOne({otp})
-    if(user){
-        if(user.otpexpire<Date.now()){
-            await user.deleteOne({ _id: user._id });
-            return res.status(400).json({ message: 'OTP has expired. User account deleted.' });
-        }
-        else{
-            res.redirect("/")
-        }
-        user.otpVerifiy=true
-        user.otpexpire=null
-        user.otp=null
-       await  user.save()
-    }
-    else{
-        res.json("invalid otp")
-    }
-})
 
-
-
+//login
 
 router.post("/login", async (req, res) => {
+    console.log(req.body.email)
+    console.log(req.body.password)
     try{
     let { email, password } = req.body
     const user = await usersModel.findOne({ email: email })
-    if (!user) { return res.status(500).send("something is wrong") }
-    if(user.otpVerifiy){
-        console.log(user)
+    if (!user) { return res.status(500).json({success:false,msg:"user not found "}) }
+
     bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
             let token = jwtTocken(user)
             res.cookie("token", token)
           
-           res.redirect("/user/chat")
+            return res.status(200).json({ success: true, msg: "Login successful" });
         }
         else {
-            res.json("wrong password")
+            return res.status(200).json({ success: false, msg: "wrong password" });
         }
-    })}
-    else{
-        res.json("email is not verified")
-    }
+    })
+   
 }
     catch(err){
-        res.json(err.message)
+        return res.status(200).json({ success: false, msg: err.message });
     }
 })
 
 
-            
-           
-            
-       
-   
-    
-   
+router.post('/createPost',islogging, upload.single("file"),async (req,res)=>{
 
-
-
-
-
-// router.post("/savechat", async (req, res) => {
-//     try {
-//       const { sender_id, receiver_id, message } = req.body;
+    if(!req.file){
+        return res.json({
+            error:true,
+            msg:'please enter the file '
+        })
+    }
+    const picon = req.file.path;
+    cloudinary.uploader.upload(picon, async (err, result) => {
+        if (err) {
+            return res.json({
+                error: true,
+                message: err.message,
+                status: 500
+            })
+        }
+        else {
+       const des=req.body.dec
       
-//       const newChat = await chat.create({
-//         sender_id: sender_id,
-//         receiver_id: receiver_id,
-//         message: message
-//       });
-  
-//       console.log(newChat);
-  
-//       res.status(200).json({success: true, msg: "Chat inserted", data: newChat});
-//     } catch (err) {
-//       res.status(400).json({success: false, msg: err.message});
-//     }
-//   });
+       const user= await usersModel.findOne({email:req.user.email})
+       
+       const post=await postModel.create({
+        des,
+        image:result.secure_url,
+        user:user._id,
+       })
+       user.post.push(post._id)
+       await user.save()
+       res.redirect('/admin')
+        }
+
+    })
+})
 
 
-  
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 module.exports = router
 
-// 
+
+
+
+

@@ -1,0 +1,943 @@
+
+
+body{
+    background-color:  rgb(21, 18, 48);
+ }
+ 
+ *{
+     padding:0%;
+     margin: 0%;
+     
+ }
+ .nav{
+     position: fixed;
+     top: 0;
+     height: 10vh;
+     width: 100%;
+    
+      /* background-color: rgb(41, 36, 68); */
+ 
+      background-color:#000000;
+ 
+     border-bottom: 2px  solid  black;
+     box-shadow: 2px 5px 4px  black;
+     display: flex;
+     align-items: center;
+     margin-bottom: 5vh;
+     /* justify-content: center; */
+ }
+ .spacer1{
+     height: 14vh;
+ }
+ 
+ .title{
+    font-size: 1.70vw ;
+    color:crimson;
+    font-weight:600;
+    padding-left: 7vw;
+    /* font-family:sans-serif; */
+ }
+ #sc{
+     padding-left: 11vw ;
+ }
+ #serach{
+     padding-left: 4vw;
+     
+     font-size: 1vw;
+     height: 6vh;
+     width: 40vw;
+     color:white;
+     /* border: 2px solid  rgb(41, 36, 68); */
+     background-color: rgba(255, 255, 255, 0.1); /* Slightly see-through */
+ border: 1px solid crimson;
+ 
+     outline: none;
+     box-shadow: 0 0 10px 3px rgba(220, 20, 60, 0.6);
+ 
+     border-radius: 22px;
+     z-index: -1;
+     /* background-color: rgb(41, 36, 68); */
+     /* backdrop-filter: blur(5px);
+ background-color: rgba(0, 0, 0, 0.5); */
+ 
+ }
+ #serach:focus {
+     /* border: 1px solid crimson;
+     box-shadow: 0 4px 8px black;  */
+      /* Green box-shadow on focus *//* Optional: Adds a custom border color */
+      
+         box-shadow: 0 6px 15px rgba(220, 20, 60, 0.5); /* Crimson shadow */
+         transition: box-shadow 0.3s ease-in-out;
+     
+     
+ }
+ 
+ #create{
+     background-color: crimson;
+     color: white ;
+     margin-left: 19vh;
+     /* font-family: sans-serif; */
+     cursor: pointer;
+     font-size: 1.10vw;
+     font-weight: 500;
+     height :5vh;
+     width:7vw;
+     /* background-color: rgb(0, 214, 105); */
+     border: none;
+     border-radius: 30px;
+ 
+ }
+ .plogo{
+     margin-left: 2vw;
+     background-size: contain;
+     background-repeat: no-repeat;
+     height: 6vh;
+     width: 3vw;
+     border: none;
+     border-radius: 50px;
+ }
+ 
+ .plogo #lg {
+     height: 100%;
+     width: 100%;
+     object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+     border-radius: 50%; /* Matches container's border-radius */
+ }
+ 
+ #si{
+  height: 1.20vw;
+  position: absolute ;
+  cursor: pointer;
+  top:3.50vh;
+  left:28.80vw;
+ }
+ 
+ 
+ 
+ /* section part */
+ .section{
+     height: 100%;
+     width: 100vw;
+     
+     background-color: rgb(21, 18, 48) ;
+ display: flex;
+   flex-direction: column;
+ justify-content: space-between;
+ 
+ 
+ 
+ }
+ 
+ /*  side bar */
+ 
+ .side-bar{
+     
+   position: fixed;
+   top: 6vh;
+     z-index: 1;
+     height: 60vh;
+     width: 18vw;
+     
+     margin-top: 16vh;
+     margin-left: 5vw;
+     background-color:rgb(41, 36, 68) ;
+     border-radius: 2vw;
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+ 
+     
+ 
+ }
+ 
+ #logo1{
+     display: flex;
+     align-items: center;
+     margin-top: 2vh;
+     margin-left: 1.70vw;
+     background-size: contain;
+     background-repeat: no-repeat;
+     width: 3vw; 
+     height: 3vw; 
+     border-radius: 50%; 
+     object-fit: cover; 
+     border: 2px solid #ccc;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+   
+ }
+ 
+ #logo1 #lg1{
+     height: 100%;
+     width: 100%;
+     object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+     border-radius: 50%; 
+ }
+ 
+ #logo1:hover {
+     background-color: #3498db; /* Background color on click */
+     color: crimson; /* Change text color */
+     border-color: #2980b9; /* Change border color */
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Add shadow on click */
+   }
+ 
+ #lgname{
+     display: block;
+     color: #ccc;
+     padding-left: 1.10vw;
+     font-size: 1.10vw;
+     font-weight: 900;
+ }
+ 
+ 
+ #shome{
+     height: 8vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     
+ 
+    
+     margin-top: 20px;
+ 
+ }
+ #home{
+     width: 10%;
+     height: auto;
+     padding-left: 2vw;   
+ }
+ h3{
+     padding-left: 1.20vw;
+     font-size: 1.20vw;
+     font-weight: 900;
+     color: #ccc;
+ 
+ }
+ 
+ #shome:hover{
+     background-color:  rgb(21, 18, 48);
+     border-left: 12px solid crimson;
+     border-radius: 8px;
+ 
+     
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+   }
+ 
+ 
+ 
+   /* create */
+   
+ #creat-c{
+     height: 8vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     
+     margin-top: 3px;
+ }
+ 
+ #creat-c:hover{
+     background-color:  rgb(21, 18, 48);
+     border-left: 12px solid crimson;
+     border-radius: 8px;
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+   }
+   
+ 
+ #save-c{
+     height: 8vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     
+     margin-top: 8px;
+ }
+ 
+ #save-c:hover{
+     background-color:  rgb(21, 18, 48);
+     border-left: 12px solid crimson;
+     border-radius: 8px;
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+   }
+ 
+ 
+ 
+ #notification-c  {height: 8vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     
+     margin-top: 8px;
+ }
+ 
+ #notification-c:hover{
+     background-color:  rgb(21, 18, 48);
+     border-left: 12px solid crimson;
+     border-radius: 8px;
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+   }
+ 
+ 
+   #logout-c  {height: 8vh;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     
+     margin-top: 8px;
+ }
+ 
+ #logout-c:hover{
+     background-color:  rgb(21, 18, 48);
+     border-left: 12px solid crimson;
+     border-radius: 8px;
+     transform: scale(1.05); /* Slightly enlarge the div */
+     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+   }
+ 
+ 
+ 
+ /* 
+ post cart */
+ 
+ 
+  .cart{
+     background-color:rgb(41, 36, 68) ;
+    
+     
+     height: 68vh;
+     width: 40%;
+    
+     margin-bottom: 4vh;
+     margin-left: 27vw;
+     border-radius: 22px;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); 
+ 
+    
+margin-top: 1%;
+margin-bottom: auto;
+
+     transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+  }
+ 
+ 
+ 
+ 
+ 
+     
+ 
+ .cart:hover {
+   transform: translateY(-5px); /* Lift the card slightly */
+   box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15), 0 3px 6px rgba(0, 0, 0, 0.1); /* Deeper shadow on hover */
+ }
+ 
+ 
+ /* logo */
+ 
+ .logo-c{
+     width: 100%;
+     height: auto;
+     display: flex;
+    align-items: center;
+    margin-top: 1.60vh;
+   
+ 
+ }
+ 
+ #logo2{
+ display: flex;
+ align-items: center;
+ margin-top: 2vh;
+ margin-left: 1.70vw;
+ background-size: contain;
+ background-repeat: no-repeat;
+ width: 3vw; 
+ height: 3vw; 
+ border-radius: 50%; 
+ object-fit: cover; 
+ border: 2px solid #ccc;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+ 
+ }
+ 
+ #logo2 #lg3{
+ height: 100%;
+ width: 100%;
+ object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+ border-radius: 50%; 
+ }
+ 
+ #lgname1{
+     
+     color: #ccc;
+     padding-left: 1.10vw;
+     font-size: 1.10vw;
+     font-weight: 900;
+ }
+ a{
+     text-decoration: none;
+     color: inherit;
+ }
+ 
+ #lg4 {
+     width: 5%;
+    display: flex;
+    align-items: flex-end;
+    margin-left: auto;
+    margin-right: 2vw;
+   }
+   
+ 
+   .post{
+     margin-top: 2vh;
+     font-size: 1vw;
+     color: #ccc;
+     width: 38vw;
+     height: auto;
+     margin-left: 2vw;
+     height: 5vh;
+   }
+   .post ,p{
+     height: 5vh;
+   }
+ 
+   #img{
+     height: 40vh;
+ 
+     width: 96%;
+     margin-top: 3vh;
+     margin-left: 1vw;
+     border-radius: 22px;
+     overflow: hidden; 
+     display: flex; 
+     justify-content: center; 
+     align-items: center;
+   }
+   
+   #img #lg5 {
+     width: 100%; /* Scale the image to fit the div's width */
+     height: 100%; /* Scale the image to fit the div's height */
+     object-fit: cover; /* Ensure the image covers the div without distortion */
+ }
+ .icon{
+     height: 3vw;
+     width: 100%;
+     display: flex;
+     align-items: center;
+     margin-top: 0,60vh;
+     margin-left: 2vw;
+ }
+ #like{
+     width: 4%;
+     height: auto;
+     
+     display: inline;
+ }
+ #dow{
+    width: 4%;
+    height: auto;
+    
+    display: inline;
+    margin-left:2vw;
+ }
+ #num{
+    color: aliceblue;
+    font-size: 1.50vw;
+    padding-left: 0.50vw;
+ }
+ #bookmark{
+     padding-left: 2vw;
+     width: 5.60%;
+     height: auto;
+     
+     margin-left: auto;
+     margin-right: 5vw;
+     float: right;
+ }
+
+
+
+.profile{
+    height: auto;
+    width: 25vw;
+    background-color: rgb(41, 36, 68);
+    border-radius: 22px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06);
+    margin-left: auto;
+position: fixed;
+top: 12vh;
+right: 4vw;
+
+
+  
+}
+.actype{
+    display: flex;
+    padding-top: 1vh;
+    padding-left: 3vw;
+    list-style: circle;
+    
+}
+
+#ac{
+    font-size: 1.50vw;
+    font-weight: 400;
+    margin-bottom: 2vh;
+    color: crimson;
+}
+#lgname4{
+
+     color: #ccc;
+     padding-left: 0.80vw;
+    padding-top: 0.80vh;
+    
+     font-size: 1.10vw;
+     font-weight: 200;
+ 
+}
+
+.logo-b{
+    width: 100%;
+    height: auto;
+    display: flex;
+   align-items: center;
+   margin-top: 1.60vh;
+   margin-bottom: 3vh;
+  
+
+}
+
+.flabel{
+    margin-top: 1.50vh;
+    margin-left: 2vw;
+    font-size: 1vw;
+    color: aliceblue;
+
+}
+hr{
+    height: 1px; width: 21vw; margin-left: 2vw; border: none; background-color: wheat;
+}
+
+
+#logo3{
+    display: flex;
+    align-items: center;
+    margin-top: 2vh;
+    margin-left: 2vw;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 1.60vw; 
+    height: 1.60vw; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+    
+    }
+    #logo3 #lg3{
+        height: 100%;
+        width: 100%;
+        object-fit: cover; /* Ensures the image covers the container while maintaining aspect ratio */
+        border-radius: 50%; 
+        }
+
+    #lgname6{
+     
+        color: #ccc;
+        padding-left: 1vw;
+        margin-top: 1vh;
+        font-size: 0.80vw;
+        font-weight: 500;
+    }
+
+ 
+ @media(max-width:670px){
+
+
+    .profile{
+        display: flex;
+        flex-direction: column;
+        position: static;
+        width: 87%;
+        height:auto;
+        margin-right: 8vw;
+    }
+    hr{
+        height: 1px; 
+        width:86%; 
+        margin-left: 4vw; 
+        border: none; 
+        background-color: wheat;
+    }
+
+
+    #actype{
+        display: flex;
+        padding-top: 1vh;
+        padding-left: 3vw;
+        list-style: circle;
+        
+    }
+    
+    #ac{
+        font-size: 4.70vw;
+        margin-left: 4vw;
+        font-weight: 400;
+        color: crimson;
+        margin-bottom: 1vh;
+    }
+    #lgname4{
+    
+         color: #ccc;
+         padding-left: 1.50vw;
+        padding-top: 0.50vh;
+        
+         font-size: 3.50vw;
+         font-weight: 200;
+     
+    }
+    
+    .logo-b{
+        width: 100%;
+        height: auto;
+        display: flex;
+       align-items: center;
+       margin-top: 0.40vh;
+       margin-bottom: 2vh;
+      
+    
+    }
+
+    .flabel{
+        margin-top: 2vh;
+        margin-left: 5vw;
+        font-size: 4.20vw;
+        color: aliceblue;
+    
+    }
+
+
+
+    #logo3{
+        display: flex;
+        align-items: center;
+        margin-top: 2vh;
+        margin-left: 5vw;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 6vw; 
+        height: auto; 
+        border-radius: 50%; 
+        object-fit: cover; 
+        border: 2px solid #ccc;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+        
+        }
+
+        #lgname6{
+    
+            color: #ccc;
+            padding-left: 2vw;
+            margin-top: 1.20vh;
+            font-size: 2.70vw;
+            font-weight: 600;
+        }
+
+
+
+    #sc{
+        display: none;
+    }
+    
+     /* body{
+         margin-top: auto;
+     } */
+     #serach{
+         display: none;
+     }
+     .title{
+         padding-left: 3vw;
+         font-size: 6vw;
+     }
+     #create{
+         background-color: rgb(0, 214, 105);
+         margin-left: 13vw;
+         font-size: 4vw;
+     font-weight: 600;
+     height :5vh;
+     width:30vw;
+         }
+         .nav{
+             height: 9vh;
+             position: static;
+         }
+ 
+         .plogo{
+             margin-left: 6vw;
+             background-size: contain;
+             background-repeat: no-repeat;
+             width: 12vw;
+             height: 12vw;
+             border-radius:50%;
+             overflow: hidden;
+             border: none;
+           
+         }
+         .section{
+             display: flex;
+         }
+         #sc{
+             padding-left: 0% ;
+         }
+ 
+         #serach{
+             display: flex;
+             position: absolute;
+             padding-left: 14vw;
+             margin-bottom: 2vh;
+           margin-left: 1vh;
+             top: 12vh;
+             left: 1vw;
+             font-size: 3.80vw;
+             width: 93%;
+         }
+         #si{
+             height: 5vw;
+             position: absolute ;
+             cursor: pointer;
+             top:13.55vh;
+             z-index: 1;
+             left:7vw;
+            }
+     
+            .spacer1{
+             display: none;
+            }
+            /* section */
+            #logo1{
+             display: none;
+            }
+            #lg1{
+             display: none;
+            }
+            lgname{
+             display: none;
+            }
+            h3{
+             display: none;
+            }
+ 
+            .side-bar{
+             margin-top: 10vh;
+             height: 35vh;
+             width: 10vw;
+             right: 3%;
+            }
+ 
+            #home{
+             width: 72%;
+             height: auto;
+             padding-left: 1.55vw;   
+         }
+ 
+ 
+         #shome{
+             height: 6vh;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             
+         
+            
+             margin-top: 18px;
+         
+         }
+ 
+         #shome:hover{
+             background-color:  rgb(21, 18, 48);
+             border-left: 3px solid crimson;
+             border-radius: 5px;
+             transform: scale(1.05); /* Slightly enlarge the div */
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+         }
+ 
+         
+         /* create */
+   
+         #creat-c{
+             height: 6vh;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             
+             margin-top: 1px;
+         }
+ 
+         #creat-c:hover{
+             background-color:  rgb(21, 18, 48);
+             border-left: 3px solid crimson;
+             border-radius: 5px;
+             transform: scale(1.05); /* Slightly enlarge the div */
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+         }
+ 
+ 
+         #save-c{
+             height: 6vh;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             
+             margin-top: 1px;
+         }
+ 
+         #save-c:hover{
+             background-color:  rgb(21, 18, 48);
+             border-left: 3px solid crimson;
+             border-radius: 5px;
+             transform: scale(1.05); /* Slightly enlarge the div */
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+         }
+ 
+         #notification-c{
+             height: 6vh;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             
+             margin-top: 1px;
+         }
+ 
+         #notification-c:hover{
+             background-color:  rgb(21, 18, 48);
+             border-left: 3px solid crimson;
+             border-radius: 5px;
+             transform: scale(1.05); /* Slightly enlarge the div */
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+         }
+ 
+ 
+         #logout-c{
+             height: 6vh;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             
+             margin-top: 1px;
+         }
+ 
+         #logout-c:hover{
+             background-color:  rgb(21, 18, 48);
+             border-left: 3px solid crimson;
+             border-radius: 5px;
+             transform: scale(1.05); /* Slightly enlarge the div */
+             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+         }
+ 
+ 
+         /* cart */
+        
+         .cart{
+            
+             height: 50vh;
+             width: 87%;
+             margin-top: 2vh;
+             margin-left: 4vw;
+             border-radius: 22px;
+             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); 
+         
+            
+         
+             transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+         }
+ 
+ 
+         .logo-c{ margin-top: 1vh;}
+         
+         #logo2{
+         display: flex;
+         align-items: center;
+         margin-top: 2vh;
+         margin-left: 1.70vw;
+         background-size: contain;
+         background-repeat: no-repeat;
+         width: 10vw; 
+         height: auto; 
+         border-radius: 50%; 
+         object-fit: cover; 
+         border: 2px solid #ccc;
+         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow */
+         
+         }
+ 
+         #lgname1{
+     
+             color: #ccc;
+             padding-left: 2vw;
+             margin-top: 1.20vh;
+             font-size: 4vw;
+             font-weight: 900;
+         }
+         
+         
+         #lg4 {
+             width: 8%;
+            display: flex;
+            align-items: flex-end;
+            margin-left: auto;
+            margin-right: 7vw;
+           }
+ 
+           .post{
+             /* margin-top: 2vh;
+             font-size: 1vw;
+             color: #ccc;
+           
+             margin-left: 2vw;
+             height: 5vh; */
+             width: 87vw;
+             height: auto;
+             font-size: 3vw;
+           }
+ 
+           #img{
+             height: 30vh;
+         
+             width: 96%;
+             margin-top: 1vh;
+             margin-left: 1vw;
+             border-radius: 22px;
+             overflow: hidden; 
+             display: flex; 
+             justify-content: center; 
+             align-items: center;
+           }
+ 
+ 
+ 
+           #like{
+             margin-top: 2vh;
+             width: 7%;
+             height: auto;
+             margin-left: 3vw;
+             display: inline;
+         }
+         #num{
+            color: aliceblue;
+            font-size: 4vw;
+            margin-top: 2vh;
+            padding-left: 2vw;
+         }
+         #bookmark{
+            
+             width: 10%;
+             height: auto;
+             margin-top:1.80vh;
+             margin-left: auto;
+             margin-right: 9vw;
+             float: right;
+         }
+         
+ 
+ }
