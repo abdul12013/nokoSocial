@@ -1,5 +1,5 @@
 const express = require("express");
-require("../chattingApp/config/mongoose-connection")
+require("./config/mongoose-connection")
 
 const app = express();
 const cookieParser = require("cookie-parser");
