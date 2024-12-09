@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwtTocken = require("../Handler/token");
 const joi = require("joi");
 const cloudinary = require("../Handler/cloud");
