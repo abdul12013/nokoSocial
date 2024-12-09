@@ -500,6 +500,8 @@ a{
         }
 
         #serach{
+            z-index: 10; 
+    pointer-events: auto;
             display: flex;
             position: absolute;
             padding-left: 14vw;
@@ -511,6 +513,7 @@ a{
             width: 93%;
         }
         #si{
+           z-index:5;
             height: 5vw;
             position: absolute ;
             cursor: pointer;
