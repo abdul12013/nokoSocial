@@ -500,7 +500,7 @@ a{
         }
 
         #serach{
-            z-index: 10; 
+            z-index: 2; 
     pointer-events: auto;
             display: flex;
             position: absolute;
@@ -513,7 +513,7 @@ a{
             width: 93%;
         }
         #si{
-           z-index:5;
+           z-index:1;
             height: 5vw;
             position: absolute ;
             cursor: pointer;
@@ -651,7 +651,7 @@ a{
        
         .cart{
            
-            height: 50vh;
+            height: 55vh;
             width: 87%;
             margin-top: 2vh;
             margin-left: 4vw;
