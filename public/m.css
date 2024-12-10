@@ -481,6 +481,7 @@ a{
         .nav{
             height: 9vh;
             position: static;
+           width:100%;
         }
 
         .plogo{
@@ -505,9 +506,9 @@ a{
            
     
             display: flex;
-           pointer-events: auto;
+           
 
-            position: absolute;
+            position: static;
             padding-left: 14vw;
             margin-bottom: 2vh;
           margin-left: 1vh;
