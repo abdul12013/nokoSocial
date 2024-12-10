@@ -502,30 +502,7 @@ a{
             padding-left: 0% ;
         }
 
-        #serach{
-           
-    
-            display: flex;
-           
-             position: relative;
-           z-index:1;
-            padding-left: 14vw;
-            margin-bottom: 2vh;
-          margin-left: 1vh;
-            top: 12vh;
-            left: 1vw;
-            font-size: 3.80vw;
-            width: 93%;
-        }
-        #si{
-           cursur:pointer;
-            height: 5vw;
-            position: absolute ;
-            cursor: pointer;
-            top:13.55vh;
-          
-            left:7vw;
-           }
+       
     
            .spacer1{
             height:5vh
