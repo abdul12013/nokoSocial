@@ -3,10 +3,7 @@
 body{
    background-color:  rgb(21, 18, 48);
 }
-#sc, #si, #serach {
-    position: relative; /* Or a higher z-index if needed */
-    z-index: 10;
-}
+
 
 
 *{
