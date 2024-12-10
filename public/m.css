@@ -505,7 +505,8 @@ a{
        
     
            .spacer1{
-            height:5vh
+            height:0px;
+            display:none;
            }
            /* section */
            #logo1{
@@ -522,7 +523,7 @@ a{
            }
 
            .side-bar{
-            margin-top: 1vh;
+            margin-top: 3vh;
             height: 35vh;
             width: 10vw;
             right: 3%;
@@ -635,7 +636,7 @@ a{
            
             height: 55vh;
             width: 87%;
-            margin-top: 2vh;
+            margin-top: 0;
             margin-left: 4vw;
             border-radius: 22px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.06); 
