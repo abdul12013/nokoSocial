@@ -505,7 +505,9 @@ a{
            
     
             display: flex;
-            position: fixed;
+           pointer-events: auto;
+
+            position: absolute;
             padding-left: 14vw;
             margin-bottom: 2vh;
           margin-left: 1vh;
