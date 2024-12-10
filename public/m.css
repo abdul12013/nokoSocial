@@ -507,8 +507,8 @@ a{
     
             display: flex;
            
-
-            position: static;
+             position: relative;
+           z-index:1;
             padding-left: 14vw;
             margin-bottom: 2vh;
           margin-left: 1vh;
