@@ -502,10 +502,10 @@ a{
         }
 
         #serach{
-            z-index: 2; 
-    pointer-events: auto;
+           
+    
             display: flex;
-            position: absolute;
+            position: fixed;
             padding-left: 14vw;
             margin-bottom: 2vh;
           margin-left: 1vh;
@@ -515,7 +515,7 @@ a{
             width: 93%;
         }
         #si{
-           z-index:1;
+           cursur:pointer;
             height: 5vw;
             position: absolute ;
             cursor: pointer;
