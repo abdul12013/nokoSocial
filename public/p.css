@@ -923,6 +923,14 @@ hr{
              margin-left: 3vw;
              display: inline;
          }
+
+      #dow{
+             margin-top: 2vh;
+             width: 7%;
+             height: auto;
+             margin-left: 7vw;
+             display: inline;
+         }
          #num{
             color: aliceblue;
             font-size: 4vw;
