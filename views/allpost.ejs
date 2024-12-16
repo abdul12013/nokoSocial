@@ -111,7 +111,7 @@
            <img src="https://github.com/abdul12013/nokoSocial/blob/main/public/images/Like.png?raw=true" alt="" id="like" onclick="like('<%= ele._id %> ')">  
             <% } %>
             <h2 id="num"><%=ele.likes.length %></h3>
-                <img src="/images/download.png" alt="" id="dow" onclick="dow()"> 
+                <img src="/images/download.png" alt="" id="dow" onclick="dow('<%= ele.image %>')"> 
             <% if( user.bookmarks.indexOf(ele._id)===-1) { %>
             <img src="/images/book-mark.png" alt="" id="bookmark" onclick="save('<%= ele._id %>')">
             <% }  else {%>
@@ -224,11 +224,10 @@
         window.location.href = '/main'
     }
 
-    function dow(){
-            let image=document.querySelector("#lg5")
-           const url=image.src
+    function dow(id){
+          
            const name="download.jpg"
-           saveAs(url, name);
+           saveAs(id, name);
         }
 
     function bookmark(){
